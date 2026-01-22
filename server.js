@@ -10,7 +10,8 @@ const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
-
+const baseController = require("./controllers/baseController")
+const inventoryRoute = require("./routes/inventoryRoute")
 
 /* ***********************
  * View Engine Templates
@@ -25,9 +26,10 @@ app.set("layout", "./layouts/layout")
 app.use(static)
 
 //Index Route
-app.get("/", function (req, res) {
-  res.render("index", {title: "Home"})
-})
+app.get("/", baseController.buildHome)
+
+//Inventory routes
+app.use("/inv", inventoryRoute) //app.use() is an Express function that directs the application to use the resources passed in as parameters.
 
 /* ***********************
  * Local Server Information

@@ -52,6 +52,9 @@ nav ul li {
   font-size: 1.2rem;
   cursor: pointer;
   padding: 5px 10px;
+}
+
+nav ul li a {
   color: white;
 }
 
@@ -169,6 +172,43 @@ max-width: min-content;
   font-family: Ubuntu, Verdana, Geneva, Tahoma, sans-serif;
 }
 
+/* ***************** Classification page *************** */
+ #inv-display {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  padding: 10px;
+ }
+
+  #inv-display li {
+    border: 1px solid black;
+    background-color: lightblue;
+    box-shadow: 0 0 5px 5px rgba(12, 13, 13, 0.3);
+    list-style: none;
+  }
+
+ #inv-display img {
+  width: 100%;
+  height: 100px;
+  border-radius: 5px;
+  object-fit: cover;
+  }
+
+.namePrice {
+  text-align: center;
+}
+
+.namePrice h2 a {
+  font-family: Roboto, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1.2rem;
+  color: black;
+}
+
+.namePrice span {
+  color: rgb(4, 43, 52);
+  font-family: Ubuntu;
+}
 /* **************** Footer ************* */
 
 footer p {
