@@ -186,6 +186,7 @@ max-width: min-content;
     background-color: lightblue;
     box-shadow: 0 0 5px 5px rgba(12, 13, 13, 0.3);
     list-style: none;
+    overflow: hidden;
   }
 
  #inv-display img {
@@ -193,6 +194,13 @@ max-width: min-content;
   height: 100px;
   border-radius: 5px;
   object-fit: cover;
+  transition: transform 0.9s ease;
+  display: block; /* évite les espaces inline */
+  }
+
+  #inv-display img:hover {
+    transform: scale(1.2);
+    
   }
 
 .namePrice {
@@ -203,6 +211,10 @@ max-width: min-content;
   font-family: Roboto, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 1.2rem;
   color: black;
+}
+
+.namePrice h2 a:hover {
+  text-decoration: underline;
 }
 
 .namePrice span {
