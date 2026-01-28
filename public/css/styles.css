@@ -177,21 +177,23 @@ max-width: min-content;
   grid-column: 1/-1;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 10px;
+  gap: 1.5rem;
   padding: 10px;
+  justify-content: space-around;
  }
 
   #inv-display li {
     border: 1px solid black;
     background-color: lightblue;
-    box-shadow: 0 0 5px 5px rgba(12, 13, 13, 0.3);
+    box-shadow: 0 0 5px 3px rgba(12, 13, 13, 0.3);
     list-style: none;
     overflow: hidden;
+    min-height: 190px;
   }
 
  #inv-display img {
   width: 100%;
-  height: 100px;
+  height: 140px;
   border-radius: 5px;
   object-fit: cover;
   transition: transform 0.9s ease;
@@ -205,6 +207,7 @@ max-width: min-content;
 
 .namePrice {
   text-align: center;
+  margin-top: 1.5rem;
 }
 
 .namePrice h2 a {
@@ -221,6 +224,89 @@ max-width: min-content;
   color: rgb(4, 43, 52);
   font-family: Ubuntu;
 }
+
+/* ********************* Detail Page ********** */
+.container {
+display: grid;
+grid-template-columns: 1fr;
+padding: 10px;
+align-items: center;
+justify-content: center;
+gap: 10px;
+}
+
+.vehicle-image img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.vehicle-detail h2 {
+  font-family: Playfair Display, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 500;
+  /* width: 300px; */
+}
+
+.vehicle-detail {
+  background-color: #f5f5f5;
+  padding: 10px;
+}
+
+.vehicle-detail p {
+  margin-top: 10px;
+  font-family: Ubuntu, Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1.2rem;
+}
+
+.vehicle-detail p:nth-of-type(odd) {
+  background-color: lightgray;
+  padding: 10px;
+}
+
+.vehicle-detail .title {
+  font-family: Roboto;
+  font-weight: 700;
+}
+
+/* ****************** Error page ******************* */
+.error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 2rem;
+  background: url('/images/site/error-bg.jpg') no-repeat center center;
+  background-size: cover;
+  border-radius: 8px;
+  margin: auto
+}
+
+.error-container h1 {
+  font-size: 3rem;
+  color: #0A0A0A;
+  background-color: rgba(250, 250, 250, 0.7);
+  /* white text for contrast */
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.error-message {
+  font-size: 1.25rem;
+  color: #0A0A0A;
+  background-color: rgba(250, 250, 250, 0.7);
+  margin-bottom: 1.5rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  font-family: Playfair Display, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+
+
 /* **************** Footer ************* */
 
 footer p {
@@ -237,6 +323,7 @@ footer p {
   }
 
   #wrapper {
+    min-height: 100vh;
     max-width: 850px;
     margin: 10px auto;
     border: 5px solid skyblue;
@@ -244,17 +331,12 @@ footer p {
     background-color: white;
   }
 
-  #wrapper main {
+  .upgrade-reviews {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     grid-template-areas:
     "heading heading"
       "hero hero"
       "updates reviews"
-  }
-
-  #wrapper h1 {
-  grid-area: heading;
   }
 
   .hero-section {
@@ -270,6 +352,16 @@ footer p {
   .upgrades {
     grid-area: updates;
   }
+
+  #inv-display {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 250px));
+    justify-content: flex-start;
+  }
+
+  .container {
+    grid-template-columns: 1fr 1fr;
+  }
+
 }
 
 
