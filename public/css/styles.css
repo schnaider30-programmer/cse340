@@ -305,6 +305,63 @@ gap: 10px;
   border-radius: 10px;
 }
 
+/* ****************** Login Page **************** */
+
+.signup-box {
+  background: linear-gradient(to bottom, #4facfe, #00f2fe);
+  border-radius: 5px;
+  width: 350px;
+  margin: auto;
+  padding: 10px;
+}
+form {
+  padding: 10px;
+  border: 1px solid whitesmoke;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-family: Ubuntu, Verdana, Geneva, Tahoma, sans-serif;
+}
+
+label + input {
+  padding: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+#loginBtn {
+  display: block;
+  margin: 10px auto;
+  padding: 5px 10px;
+  border: none;
+  background-color: #B0B8C8;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: #07173A;
+  border-radius: 5px;
+}
+
+#loginBtn:hover {
+  background-color: rgba(54, 60, 241, 0.733);
+}
+
+.signup {
+  text-align: center;
+  font-family: playfair display;
+  color: #020202;
+}
+
+.signup a {
+  color: #07173A;
+}
+
+.signup a:hover {
+  text-decoration: underline;
+}
+
 
 
 /* **************** Footer ************* */
