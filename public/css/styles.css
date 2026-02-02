@@ -26,7 +26,7 @@
   align-items: center;
 }
 
-#top-header span{
+#top-header span {
   font-size: 1.5rem;
   font-family: Ubuntu, Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -68,9 +68,10 @@ h1 {
   padding-left: 10px;
   font-size: 1.5rem;
   margin-top: 10px;
-  font-family: Poppins, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family:
+    Poppins, "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
-
 
 /* ************** Hero Section **************  */
 
@@ -85,7 +86,7 @@ h1 {
   z-index: 1;
   margin-top: 5%;
   margin-left: 10px;
-  color:blue;
+  color: blue;
   padding: 15px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 10px;
@@ -93,7 +94,7 @@ h1 {
   width: fit-content;
   height: fit-content;
   font-family: Ubuntu, Verdana, Geneva, Tahoma, sans-serif;
-  box-shadow: 0 0  5px 0 black;
+  box-shadow: 0 0 5px 0 black;
   font-size: 1.1rem;
 }
 
@@ -111,16 +112,22 @@ h1 {
 }
 
 .hero-image img {
-  width:  100%;
+  width: 100%;
 }
 
 /* ************** Reviews ****************  */
 
 .reviews h2 {
   margin: 10px;
-  font-family: Playfair Display, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family:
+    Playfair Display,
+    "Segoe UI",
+    Tahoma,
+    Geneva,
+    Verdana,
+    sans-serif;
 }
-.reviews ul{
+.reviews ul {
   margin: 1rem 2rem;
 }
 
@@ -133,15 +140,21 @@ h1 {
 /* ************ Upgrades **********  */
 
 .upgrades {
-display: grid;
-grid-template-columns: repeat(2, minmax(150px, 250px));
-max-width: min-content;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 250px));
+  max-width: min-content;
 }
 
 .upgrades h2 {
   grid-column: 1/3;
   padding-left: 10px;
-  font-family: Playfair Display, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family:
+    Playfair Display,
+    "Segoe UI",
+    Tahoma,
+    Geneva,
+    Verdana,
+    sans-serif;
 }
 
 .upgrades > div {
@@ -149,7 +162,7 @@ max-width: min-content;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-left: 10px; 
+  padding-left: 10px;
   gap: 10px;
   width: 100%;
   margin: 1rem;
@@ -173,37 +186,36 @@ max-width: min-content;
 }
 
 /* ***************** Classification page *************** */
- #inv-display {
+#inv-display {
   grid-column: 1/-1;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 1.5rem;
   padding: 10px;
   justify-content: space-around;
- }
+}
 
-  #inv-display li {
-    border: 1px solid black;
-    background-color: lightblue;
-    box-shadow: 0 0 5px 3px rgba(12, 13, 13, 0.3);
-    list-style: none;
-    overflow: hidden;
-    min-height: 190px;
-  }
+#inv-display li {
+  border: 1px solid black;
+  background-color: lightblue;
+  box-shadow: 0 0 5px 3px rgba(12, 13, 13, 0.3);
+  list-style: none;
+  overflow: hidden;
+  min-height: 190px;
+}
 
- #inv-display img {
+#inv-display img {
   width: 100%;
   height: 140px;
   border-radius: 5px;
   object-fit: cover;
   transition: transform 0.9s ease;
   display: block; /* évite les espaces inline */
-  }
+}
 
-  #inv-display img:hover {
-    transform: scale(1.2);
-    
-  }
+#inv-display img:hover {
+  transform: scale(1.2);
+}
 
 .namePrice {
   text-align: center;
@@ -211,7 +223,18 @@ max-width: min-content;
 }
 
 .namePrice h2 a {
-  font-family: Roboto, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family:
+    Roboto,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
   font-size: 1.2rem;
   color: black;
 }
@@ -227,12 +250,12 @@ max-width: min-content;
 
 /* ********************* Detail Page ********** */
 .container {
-display: grid;
-grid-template-columns: 1fr;
-padding: 10px;
-align-items: center;
-justify-content: center;
-gap: 10px;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .vehicle-image img {
@@ -241,7 +264,13 @@ gap: 10px;
 }
 
 .vehicle-detail h2 {
-  font-family: Playfair Display, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family:
+    Playfair Display,
+    "Segoe UI",
+    Tahoma,
+    Geneva,
+    Verdana,
+    sans-serif;
   font-weight: 500;
   /* width: 300px; */
 }
@@ -253,7 +282,9 @@ gap: 10px;
 
 .vehicle-detail p {
   margin-top: 10px;
-  font-family: Ubuntu, Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family:
+    Ubuntu, Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
   font-size: 1.2rem;
 }
 
@@ -276,15 +307,15 @@ gap: 10px;
   min-height: 60vh;
   text-align: center;
   padding: 2rem;
-  background: url('/images/site/error-bg.jpg') no-repeat center center;
+  background: url("/images/site/error-bg.jpg") no-repeat center center;
   background-size: cover;
   border-radius: 8px;
-  margin: auto
+  margin: auto;
 }
 
 .error-container h1 {
   font-size: 3rem;
-  color: #0A0A0A;
+  color: #0a0a0a;
   background-color: rgba(250, 250, 250, 0.7);
   /* white text for contrast */
   margin-bottom: 1rem;
@@ -295,25 +326,58 @@ gap: 10px;
 
 .error-message {
   font-size: 1.25rem;
-  color: #0A0A0A;
+  color: #0a0a0a;
   background-color: rgba(250, 250, 250, 0.7);
   margin-bottom: 1.5rem;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-  font-family: Playfair Display, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family:
+    Playfair Display,
+    "Segoe UI",
+    Tahoma,
+    Geneva,
+    Verdana,
+    sans-serif;
   font-weight: 500;
   padding: 10px;
   border-radius: 10px;
 }
 
-/* ****************** Login Page **************** */
+/* **************** Flash Messages Styles Start ***************** */
 
-.signup-box {
+/* #messages {
+  text-align: center;
+}
+
+.notice {
+
+} */
+
+.notice li {
+  list-style: none;
+  text-align: center;
+  color: #36eea7;
+  font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.2rem;
+}
+.notice.red li {
+  color: red;
+}
+
+/* ****************** Form style **************** */
+
+.signup-box,
+.registration-box {
   background: linear-gradient(to bottom, #4facfe, #00f2fe);
   border-radius: 5px;
   width: 350px;
   margin: auto;
   padding: 10px;
 }
+/*Take the h1 that has ... as a brother */
+.formH1 {
+  text-align: center;
+}
+
 form {
   padding: 10px;
   border: 1px solid whitesmoke;
@@ -330,21 +394,40 @@ label + input {
   padding: 5px;
   margin-bottom: 10px;
   width: 100%;
+  font-size: 1.1rem;
 }
 
-#loginBtn {
+input:required:invalid, input:focus:invalid {
+  background-color: rgb(235, 197, 197);
+  outline: none;
+  border: 2px solid red;
+}
+
+input:required:valid,
+input:focus:valid {
+  background-color: rgb(127, 240, 183);
+  border: 3px solid #07e442;
+  outline: none;
+}
+
+label:has(+ input:required)::after {
+  content: "*";
+  color: red;
+}
+
+#submitBtn {
   display: block;
   margin: 10px auto;
   padding: 5px 10px;
   border: none;
-  background-color: #B0B8C8;
+  background-color: #b0b8c8;
   cursor: pointer;
   font-size: 1.1rem;
-  color: #07173A;
+  color: #07173a;
   border-radius: 5px;
 }
 
-#loginBtn:hover {
+#submitBtn:hover {
   background-color: rgba(54, 60, 241, 0.733);
 }
 
@@ -355,14 +438,12 @@ label + input {
 }
 
 .signup a {
-  color: #07173A;
+  color: #07173a;
 }
 
 .signup a:hover {
   text-decoration: underline;
 }
-
-
 
 /* **************** Footer ************* */
 
@@ -391,9 +472,9 @@ footer p {
   .upgrade-reviews {
     display: grid;
     grid-template-areas:
-    "heading heading"
+      "heading heading"
       "hero hero"
-      "updates reviews"
+      "updates reviews";
   }
 
   .hero-section {
@@ -418,7 +499,4 @@ footer p {
   .container {
     grid-template-columns: 1fr 1fr;
   }
-
 }
-
-

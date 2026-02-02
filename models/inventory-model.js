@@ -1,37 +1,45 @@
-const pool = require("../database/")
+const pool = require("../database/");
 
 /* ********************
-    *   Get all classification data
-* ********************* */
+ *   Get all classification data
+ * ********************* */
 async function getClassifications() {
-    return await pool.query("SELECT * FROM public.classification ORDER BY classification_name")
+  return await pool.query(
+    "SELECT * FROM public.classification ORDER BY classification_name",
+  );
 }
 
 /* *******************
  *  Get all inventory items and classification_name by classification_id
  *  ***************** */
 async function getInventoryByClassificationId(classification_id) {
-    try {
-        const data = await pool.query(
-            `SELECT * FROM public.inventory AS i 
+  try {
+    const data = await pool.query(
+      `SELECT * FROM public.inventory AS i 
             JOIN public.classification AS c 
             ON i.classification_id = c.classification_id
-            WHERE i.classification_id = $1;`, [classification_id]
-        )
-        return data.rows
-    } catch (error) {
-        console.log("getclassificationbyid error " + error)
-    }
+            WHERE i.classification_id = $1;`,
+      [classification_id],
+    );
+    return data.rows;
+  } catch (error) {
+    console.log("getclassificationbyid error " + error);
+  }
 }
 
 async function getVehiclesByInventoryId(inventory_id) {
-    try {
-        const data = await pool.query(
-            `SELECT * FROM public.inventory WHERE inv_id = $1`, [inventory_id]
-        )
-        return data.rows
-    } catch (error) {
-        console.error("Get Inventory Data Fails! Error: " + error)
-    }
+  try {
+    const data = await pool.query(
+      `SELECT * FROM public.inventory WHERE inv_id = $1`,
+      [inventory_id],
+    );
+    return data.rows;
+  } catch (error) {
+    console.error("Get Inventory Data Fails! Error: " + error);
+  }
 }
-module.exports = {getClassifications, getInventoryByClassificationId, getVehiclesByInventoryId}
+module.exports = {
+  getClassifications,
+  getInventoryByClassificationId,
+  getVehiclesByInventoryId,
+};
