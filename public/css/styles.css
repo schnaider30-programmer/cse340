@@ -353,13 +353,12 @@ h1 {
 } */
 
 .notice li {
-  list-style: none;
   text-align: center;
   color: #36eea7;
   font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
-.notice.red li {
+.notice.error li {
   color: red;
 }
 
