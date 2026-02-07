@@ -13,12 +13,15 @@
     </ul>
 <% } %>
 
-<div class="signup-box">
+<div class="form-container">
+    <p>*All input fields are required</p>
     <form id="loginForm" action="/account/login" method="post">
-        <label for="email">Email:</label>
+        <label for="email" class="required">Email:</label>
         <input type="email" id="email" name="account_email" value="<%= locals.account_email %>" required>
-        <label for="password">Password:</label>
+
+        <label for="password" class="required">Password:</label>
         <input type="password" name="account_password" id="password" required>
+
         <button type="submit" id="submitBtn">Login</button>
     </form>
     <p class="signup">No account? <a href="/account/register">Sign-up</a></p>

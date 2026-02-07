@@ -1,6 +1,6 @@
 const utilities = require("../utilities");
 const accountModel = require("../models/account-model");
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
 
 /* ********************************
  *  Deliver login view
@@ -10,7 +10,7 @@ async function buildLogin(req, res, next) {
   res.render("account/login", {
     title: "Login",
     nav,
-    errors:null,
+    errors: null,
   });
 }
 
@@ -27,8 +27,8 @@ async function buildRegister(req, res, next) {
 }
 
 /* ****************************************
-*  Process Registration
-* *************************************** */
+ *  Process Registration
+ * *************************************** */
 
 async function registerAccount(req, res) {
   let nav = await utilities.getNav();
@@ -40,19 +40,20 @@ async function registerAccount(req, res) {
   } = req.body;
 
   //Hash the password before storing
-  let hashedPassword
+  let hashedPassword;
   try {
     // regular password and cost (salt is generated automatically)
-    hashedPassword = await bcrypt.hashSync(account_password, 10)
+    hashedPassword = await bcrypt.hashSync(account_password, 10);
   } catch (error) {
     req.flash(
       "notice",
-      "Sorry, there was an error processing the registration")
+      "Sorry, there was an error processing the registration",
+    );
     res.status(500).render("account/register", {
-        title: "Register",
-        nav, 
-        errors: null, 
-      })
+      title: "Register",
+      nav,
+      errors: null,
+    });
   }
 
   const regResult = await accountModel.registerAccount(
@@ -77,7 +78,7 @@ async function registerAccount(req, res) {
     res.status(501).render("account/register", {
       title: "Register",
       nav,
-      errors:null
+      errors: null,
     });
   }
 }

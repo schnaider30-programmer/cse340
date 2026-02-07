@@ -298,7 +298,7 @@ h1 {
   font-weight: 700;
 }
 
-/* ****************** Error page ******************* */
+/* ****************** Error page style starts ******************* */
 .error-container {
   display: flex;
   flex-direction: column;
@@ -341,6 +341,40 @@ h1 {
   padding: 10px;
   border-radius: 10px;
 }
+/* ****************** Error page style ends ******************* */
+
+/* ****************** Management page style starts ******************* */
+.manager {
+  padding: 10px;
+  list-style: none;
+}
+
+.manager a {
+  color: #042941;
+  font-family:
+    Roboto,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
+  font-size: 1.1rem;
+  display: inline-block;
+  margin-top: 5px;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+
+.manager a:hover {
+  color: #0d91e3;
+  text-decoration: none;
+}
 
 /* **************** Flash Messages Styles Start ***************** */
 
@@ -354,23 +388,31 @@ h1 {
 
 .notice li {
   text-align: center;
-  color: #36eea7;
+  color: #0a5c2f;
   font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
   font-size: 1rem;
+  list-style: none;
+  text-shadow: 0 0 1px rgb(26, 4, 4);
 }
 .notice.error li {
-  color: red;
+  color: #721c24;
+  text-shadow: 0 0 1px rgb(26, 4, 4);
 }
 
 /* ****************** Form style **************** */
 
-.signup-box,
-.registration-box {
+.form-container {
   background: linear-gradient(to bottom, #4facfe, #00f2fe);
   border-radius: 5px;
   width: 350px;
   margin: auto;
   padding: 10px;
+}
+
+.form-container > p {
+  padding: 10px;
+  font-size: 1rem;
+  font-style: italic;
 }
 /*Take the h1 that has ... as a brother */
 .formH1 {
@@ -383,33 +425,51 @@ form {
   margin-bottom: 10px;
   border-radius: 5px;
 }
+
+form > p {
+  font-family: Ubuntu, Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 5px 0;
+}
 label {
   display: block;
   margin-bottom: 5px;
   font-family: Ubuntu, Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.2rem;
 }
 
-label + input {
+#invDescription {
+  width: 100%;
+  min-height: 130px;
+  resize: none;
+  padding: 10px;
+  font-size: 1rem;
+  font-family: Ubuntu, Verdana, Geneva, Tahoma, sans-serif;
+}
+
+input, select {
   padding: 5px;
   margin-bottom: 10px;
   width: 100%;
   font-size: 1.1rem;
 }
 
-input:required:invalid, input:focus:invalid {
+input:required:invalid,
+input:focus:invalid, #invDescription:focus:invalid, select:invalid {
   background-color: rgb(235, 197, 197);
   outline: none;
-  border: 2px solid red;
+  border: 1px solid #721c24;
 }
 
 input:required:valid,
-input:focus:valid {
+input:focus:valid, #invDescription:valid, select:valid {
   background-color: rgb(127, 240, 183);
-  border: 3px solid #07e442;
+  border: 1px solid #07e442;
   outline: none;
 }
 
-label:has(+ input:required)::after {
+.required::after {
   content: "*";
   color: red;
 }

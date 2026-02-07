@@ -86,9 +86,10 @@ Util.handleErrors = (fn) => (req, res, next) =>
 
 // A function1  (function2) that take another function as parameter. It returns another function3 [ a middleware because of parameters (req, res, next) ].
 
-// Inside this function3 the function2 is executed with function3 parameters
-// We wrap this function2 inside Promise.resolve to ensure that it will always be a promise
-// If an error occurs, we catch it and pass it to the next() method
+/* Inside this function3 the function2 is executed with function3 parameters
+We wrap this function2 inside Promise.resolve to ensure that it will always be a promise
+If an error occurs, we catch it and pass it to the next() method 
+*/
 
 /* ****************************
  * Build the Detail View Html
@@ -114,5 +115,22 @@ Util.buildVehiclesDetailsView = async function (item) {
   }
   return grid;
 };
+
+Util.classificationList = async function (classification_id = null) {
+  const data = await invModel.getClassifications()
+  let list = `<select name="classification_id" required id="classificationId">`
+  list += "<option value=\"\" disabled>Choose a classification</option>"
+  data.rows.forEach((row) => {
+    list += `<option value="${row.classification_id}"`
+    if (!classification_id != null && classification_id == row.classification_id) {
+      list += " selected "
+    }
+    list += ">"
+    list += `${row.classification_name}`
+    list += "</option>"
+  })
+  list += "</select>"
+  return list
+}
 
 module.exports = Util;

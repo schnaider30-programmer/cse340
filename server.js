@@ -17,7 +17,7 @@ const baseController = require("./controllers/baseController");
 const inventoryRoute = require("./routes/inventoryRoute");
 const errorController = require("./controllers/errorController");
 const accountRoute = require("./routes/accountRoute");
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser");
 /* ***********************
  *  Middleware
  *  ********************* */
@@ -42,8 +42,8 @@ app.use(function (req, res, next) {
 });
 
 //Make the body parser available through the application
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true})) // For parsing application/ x-www-form-urlencoded
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); // For parsing application/ x-www-form-urlencoded
 
 /* ***********************
  * View Engine Templates
