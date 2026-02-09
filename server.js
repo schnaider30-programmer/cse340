@@ -18,6 +18,9 @@ const inventoryRoute = require("./routes/inventoryRoute");
 const errorController = require("./controllers/errorController");
 const accountRoute = require("./routes/accountRoute");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser")
+
+
 /* ***********************
  *  Middleware
  *  ********************* */
@@ -44,6 +47,9 @@ app.use(function (req, res, next) {
 //Make the body parser available through the application
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // For parsing application/ x-www-form-urlencoded
+app.use(cookieParser())
+app.use(utilities.checkJWTToken)
+
 
 /* ***********************
  * View Engine Templates
