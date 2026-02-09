@@ -5,8 +5,6 @@ const invController = require("../controllers/invController");
 const utilities = require("../utilities");
 const invValidation = require("../utilities/inventory-validation");
 
-router.get("/", utilities.handleErrors(invController.buildManagementView));
-
 router.get(
   "/type/:classificationId",
   utilities.handleErrors(invController.buildByClassificationId),
@@ -36,5 +34,18 @@ router.post("/add-inventory",
   invValidation.checkInventoryData,
   utilities.handleErrors(invController.saveNewInventory)
 )
+
+router.get("/", utilities.handleErrors(invController.buildManagementView));
+
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
+router.get("/edit/:inventory_id", utilities.handleErrors(invController.buildEditInventoryView))
+
+router.post("/update/",
+  invValidation.addInventoryRules(),
+  invValidation.checkUpdateData,
+  utilities.handleErrors(invController.updateInventory)
+)
+
 
 module.exports = router;

@@ -33,7 +33,7 @@ async function getVehiclesByInventoryId(inventory_id) {
       `SELECT * FROM public.inventory WHERE inv_id = $1`,
       [inventory_id],
     );
-    return data.rows;
+    return data.rows[0];
   } catch (error) {
     console.error("Get Inventory Data Fails! Error: " + error.message);
   }
@@ -52,18 +52,31 @@ async function addNewClassification(classification_name) {
 async function addNewVehicle(classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color) {
   const sql = "INSERT INTO inventory (classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *"
   try {
-    return await pool.query(sql, [classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color])
+    const query = await pool.query(sql, [classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color])
+    console.log("Returning:" + query)
+    console.log("ROws at 0: " + query.rows[0])
+    return query.rows[0]
   } catch (error) {
     console.error("Add new Vehicle Fails. Error: " + error.message)
   }
-  
 }
-    
+
+async function updateInventory(classification_id, inv_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color) {
+  const sql = "UPDATE inventory SET classification_id = $1, inv_make = $2, inv_model = $3, inv_description = $4, inv_image = $5, inv_thumbnail = $6, inv_price = $7, inv_year = $8, inv_miles = $9, inv_color = $10 WHERE inv_id = $11 RETURNING *"
+  try {
+    const query = await pool.query(sql, [classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color, inv_id])
+    return query.rows[0]
+  } catch (error) {
+    console.error("Update Vehicle Fails. Error: " + error.message)
+  }
+}
+
 
 module.exports = {
   getClassifications,
   getInventoryByClassificationId,
   getVehiclesByInventoryId,
   addNewClassification,
-  addNewVehicle
+  addNewVehicle, 
+  updateInventory
 };

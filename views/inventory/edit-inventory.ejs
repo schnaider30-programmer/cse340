@@ -3,7 +3,7 @@
         <%= title %>
     </h1>
 <% } else { %>
-    <h1 class="formH1">Add New Vehicle</h1>
+    <h1 class="formH1">Update <%= itemName %></h1>
 <% } %>
 
 <%- messages() %>
@@ -18,7 +18,7 @@
 
 <div class="form-container">
     <p>*All input fields are required</p>
-    <form action="/inv/add-inventory" method="post">
+    <form action="/inv/update/" method="post" id="updateForm">
 
         <label for="classificationId" class="required">Classification</label>
         <%- list %>
@@ -50,6 +50,11 @@
         <label for="invColor" class="required">Color</label>
         <input type="text" name="inv_color" id="invColor" required placeholder="Type vehicle color" value="<%= locals.inv_color %>">
 
-        <button type="submit" id="submitBtn">Add Vehicle</button>
+        <button type="submit" id="submitBtn" disabled>Update Vehicle</button>
+
+        <input type="hidden" name="inv_id" <% if (locals.inv_id) { %> value="<%= locals.inv_id %>"<% } %>>
+
     </form>
 </div>
+
+<script src="../../js/inv-update.js" defer></script>

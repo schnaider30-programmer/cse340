@@ -122,7 +122,7 @@ Util.buildVehiclesDetailsView = async function (item) {
 Util.classificationList = async function (classification_id = null) {
   const data = await invModel.getClassifications()
   let list = `<select name="classification_id" required id="classificationId">`
-  list += "<option value=\"\" disabled>Choose a classification</option>"
+  list += "<option value=\"\" selected disabled>--Choose a classification--</option>"
   data.rows.forEach((row) => {
     list += `<option value="${row.classification_id}"`
     if (!classification_id != null && classification_id == row.classification_id) {
