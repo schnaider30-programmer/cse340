@@ -2,6 +2,7 @@ const { utils } = require("prettier/doc.js");
 const invModel = require("../models/inventory-model");
 const utilities = require("../utilities");
 const Util = require("../utilities");
+const { util } = require("prettier");
 
 const invCont = {};
 
@@ -54,6 +55,7 @@ invCont.AddClassificationForm = async function (req, res, next) {
 
 invCont.addClassification = async function (req, res) {
   const { classification_name } = req.body;
+  const classificationSelect = await utilities.classificationList()
   try {
     const result = await invModel.addNewClassification(classification_name);
     let nav = await utilities.getNav();
@@ -67,6 +69,7 @@ invCont.addClassification = async function (req, res) {
         title: "Vehicle Management",
         nav,
         errors: null,
+        classificationSelect,
       });
     } else {
       req.flash(
@@ -112,28 +115,34 @@ invCont.buildManagementView = async function (req, res, next) {
   });
 };
 
+/* *********************************
+ *  Form to add new item in inventory
+ *  ********************************* */
+
 invCont.saveNewInventory = async function (req, res, next) {
   const { classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color } = req.body
 
   let nav = await utilities.getNav()
-  let list = await utilities.classificationList()
+  let  classificationSelect = await utilities.classificationList()
 
   try {
     const result = await invModel.addNewVehicle(classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color)
     
-    if (result.rowCount == 1) {
+    if (result) {
       req.flash("notice", "A new vehicle was successfully added to inventory")
 
       res.status(201).render("inventory/management", {
         title: "Vehicle Management",
         nav, 
+        classificationSelect
       })
     } else {
       req.flash("notice error", "No vehicle added. Please try again")
       res.render("inventory/add-inventory", {
         title: "Add New Vehicle",
-        list, nav, inv_make, inv_model, inv_description, inv_price, inv_year, inv_miles, inv_color,
-        errors: null
+        classificationSelect, nav, inv_make, inv_model, inv_description, inv_price, inv_year, inv_miles, inv_color,
+        errors: null,
+        
       })
     }
 
@@ -223,6 +232,50 @@ invCont.buildEditInventoryView = async function (req, res, next) {
     classification_id: itemData.classification_id,
     errors: null,
   })
+}
+
+/* ********************************** 
+ *  Build Delete Item Confirmation View 
+ *  Unit 5 - Team Activity
+ * *********************************** */
+
+invCont.deleteItemView = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  const inv_id = parseInt(req.params.inv_id)
+  const itemData = await invModel.getVehiclesByInventoryId(inv_id)
+  const itemName = `${itemData.inv_make} ${itemData.inv_model}`
+
+  res.render("inventory/delete-confirm", {
+    title: `Delete ${itemName}`,
+    nav,
+    itemName,
+    inv_make: itemData.inv_make,
+    inv_model: itemData.inv_model,
+    inv_price: itemData.inv_price,
+    inv_year: itemData.inv_year,
+    inv_id,
+    errors: null
+  })
+}
+/* *******************************************
+  * Delete Item 
+  * ******************************************** */
+
+invCont.deleteItem = async function (req, res, next) {
+  let { inv_id, inv_make, inv_model } = req.body
+  inv_id = parseInt(inv_id)
+  const itemName = `${inv_make} ${inv_model}`
+  // const deleteResult = await invModel.deleteInventory( inv_id )
+
+  if (0) {
+    req.flash("notice", `${itemName} was successfully deleted.`)
+
+    res.redirect("/inv/")
+    
+  } else {
+    req.flash("notice error", "We're sorry. Your deletion failed. Please try again")
+    res.redirect(`/inv/delete/${inv_id}`)
+  }
 }
 
 module.exports = invCont;

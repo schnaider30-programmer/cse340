@@ -43,7 +43,10 @@ async function addNewClassification(classification_name) {
   const sql =
     "INSERT INTO classification (classification_name) VALUES ($1) RETURNING *";
   try {
-    return await pool.query(sql, [classification_name]);
+    const query = await pool.query(sql, [classification_name]);
+    console.log("Returning:", query)
+    console.log("ROws at 0: ", query.rows[0])
+    return query.rows[0];
   } catch (error) {
     console.log("Add New Classification Fails! Error: " + error.message);
   }
@@ -53,8 +56,6 @@ async function addNewVehicle(classification_id, inv_make, inv_model, inv_descrip
   const sql = "INSERT INTO inventory (classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *"
   try {
     const query = await pool.query(sql, [classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color])
-    console.log("Returning:" + query)
-    console.log("ROws at 0: " + query.rows[0])
     return query.rows[0]
   } catch (error) {
     console.error("Add new Vehicle Fails. Error: " + error.message)
@@ -71,6 +72,16 @@ async function updateInventory(classification_id, inv_id, inv_make, inv_model, i
   }
 }
 
+async function deleteInventory( inv_id) {
+  const sql = " DELETE FROM inventory WHERE inv_id = $1 RETURNING *"
+  try {
+    const query = await pool.query(sql, [inv_id])
+    return query
+  } catch (error) {
+    throw new Error("Delete Inventory Fails. Error: " + error.message)
+  }
+}
+
 
 module.exports = {
   getClassifications,
@@ -78,5 +89,6 @@ module.exports = {
   getVehiclesByInventoryId,
   addNewClassification,
   addNewVehicle, 
-  updateInventory
+  updateInventory,
+  deleteInventory,
 };

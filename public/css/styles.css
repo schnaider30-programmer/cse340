@@ -431,6 +431,19 @@ h1 {
   text-shadow: 0 0 1px rgb(26, 4, 4);
 }
 
+h3.notice.error, h2.notice.error{
+  color: #721c24;
+  text-shadow: 0 0 1px rgb(26, 4, 4);
+  font-size: 1.1rem;
+  font-weight: 300;
+  font-family: "Playfair Display", "Ubuntu", "Roboto";
+  margin-bottom: 5px;
+  padding: 0;
+  background-color: #f5f5f5;
+  text-align: center;
+  text-transform: capitalize;
+}
+
 /* ****************** Form style **************** */
 
 .form-container {
