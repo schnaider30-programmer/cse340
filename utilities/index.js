@@ -166,4 +166,21 @@ Util.checkLogin = (req, res, next) => {
     return res.redirect("/account/login")
   }
 }
+
+Util.checkAccountType = function (req, res, next) {
+  if (res.locals.loggedin) {
+    const accountType = res.locals.accountData.account_type
+    if (accountType === "Admin" || accountType === "Employee") {
+      next()
+    } else {
+      req.flash("notice error", "Access denied. Admin or Employee only.")
+      res.redirect("/account/login")
+    }
+  } else {
+    req.flash("notice error", "Please Log in before processing")
+    res.redirect("/account/login")
+  }
+}
+
+
 module.exports = Util;

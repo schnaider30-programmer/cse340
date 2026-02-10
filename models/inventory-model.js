@@ -44,8 +44,6 @@ async function addNewClassification(classification_name) {
     "INSERT INTO classification (classification_name) VALUES ($1) RETURNING *";
   try {
     const query = await pool.query(sql, [classification_name]);
-    console.log("Returning:", query)
-    console.log("ROws at 0: ", query.rows[0])
     return query.rows[0];
   } catch (error) {
     console.log("Add New Classification Fails! Error: " + error.message);
@@ -76,6 +74,7 @@ async function deleteInventory( inv_id) {
   const sql = " DELETE FROM inventory WHERE inv_id = $1 RETURNING *"
   try {
     const query = await pool.query(sql, [inv_id])
+    console.log(query)
     return query
   } catch (error) {
     throw new Error("Delete Inventory Fails. Error: " + error.message)

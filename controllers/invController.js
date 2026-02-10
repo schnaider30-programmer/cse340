@@ -1,9 +1,6 @@
 const { utils } = require("prettier/doc.js");
 const invModel = require("../models/inventory-model");
 const utilities = require("../utilities");
-const Util = require("../utilities");
-const { util } = require("prettier");
-
 const invCont = {};
 
 /* *******************
@@ -28,13 +25,13 @@ invCont.buildByClassificationId = async function (req, res, next) {
 invCont.buildByInventoryId = async function (req, res, next) {
   const inventory_id = req.params.inventoryId;
   const vehicle = await invModel.getVehiclesByInventoryId(inventory_id);
-  const detailsView = await utilities.buildVehiclesDetailsView(vehicle[0]);
+  const detailsView = await utilities.buildVehiclesDetailsView(vehicle);
   const vehicleName =
-    vehicle[0].inv_year +
+    vehicle.inv_year +
     " " +
-    vehicle[0].inv_make +
+    vehicle.inv_make +
     " " +
-    vehicle[0].inv_model;
+    vehicle.inv_model;
   let nav = await utilities.getNav();
   res.render("inventory/details", {
     title: vehicleName,
@@ -60,7 +57,7 @@ invCont.addClassification = async function (req, res) {
     const result = await invModel.addNewClassification(classification_name);
     let nav = await utilities.getNav();
 
-    if (result.rowCount === 1) {
+    if (result) {
       req.flash(
         "notice",
         `The new classification name "${classification_name}" was successfully added.`,
@@ -80,6 +77,7 @@ invCont.addClassification = async function (req, res) {
         title: "Add new Classification",
         nav,
         classification_name,
+        errors: null,
       });
     }
   } catch (error) {
@@ -89,6 +87,7 @@ invCont.addClassification = async function (req, res) {
       title: "Add new Classification",
       nav,
       classification_name,
+      errors: null,
     });
   }
 };
@@ -265,9 +264,9 @@ invCont.deleteItem = async function (req, res, next) {
   let { inv_id, inv_make, inv_model } = req.body
   inv_id = parseInt(inv_id)
   const itemName = `${inv_make} ${inv_model}`
-  // const deleteResult = await invModel.deleteInventory( inv_id )
+  const deleteResult = await invModel.deleteInventory( inv_id )
 
-  if (0) {
+  if (deleteResult) {
     req.flash("notice", `${itemName} was successfully deleted.`)
 
     res.redirect("/inv/")

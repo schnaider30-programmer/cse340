@@ -1,7 +1,22 @@
 <% if (title) { %>
     <h1 class="formH1"><%= title %></h1>
 <% } else { %>
-        <h1 class="formH1">Login</h1>
+        <h1 class="formH1">Account Management</h1>
 <% } %>
 
-<p>You're logged in</p>
+
+<% let accountType = locals.accountData.account_type %>
+<% let accountFirstname = locals.accountData.account_firstname %>
+
+<%- messages() %>
+
+<div class="manager account">
+    <h2>Welcome <%= accountFirstname %></h2>
+    <p>You're logged in</p>
+    <p><a href="/account/update">Update Account Information</a></p>
+
+    <% if (accountType !=="Client" ) { %>
+        <h3>Management Inventory</h3>
+        <p><a href="/inv/">Manage Inventory</a></p>
+    <% } %>
+</div>

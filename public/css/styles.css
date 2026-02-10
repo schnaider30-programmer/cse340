@@ -32,7 +32,15 @@
 }
 
 #tools {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  & a {
+    padding: 5px;
+
+    &:hover {
+      background-color: #dce4f7;
+      border-radius: 5px;
+    }
+  }
 }
 
 /* ******** Navigation ********  */
@@ -416,6 +424,21 @@ h1 {
   }
 }
 
+.manager.account {
+  & p {
+    font-size: 1.1rem;
+    margin: 5px;
+  }
+  & h2 {
+    color: #07173a;
+  }
+  & h3 {
+    font-size: 1.3rem;
+    color: #07173a;
+    margin: 2rem 0 5px 5px;
+  }
+}
+
 /* **************** Flash Messages Styles Start ***************** */
 
 .notice li {
@@ -450,8 +473,13 @@ h3.notice.error, h2.notice.error{
   background: linear-gradient(to bottom, #4facfe, #00f2fe);
   border-radius: 5px;
   width: 350px;
-  margin: auto;
+  margin: 1.5rem auto;
   padding: 10px;
+
+  & h2 {
+    margin-bottom: 5px;
+    padding-left: 5px;
+  }
 }
 
 .form-container > p {
@@ -477,6 +505,7 @@ form > p {
   font-weight: 500;
   padding: 5px 0;
 }
+
 label {
   display: block;
   margin-bottom: 5px;
