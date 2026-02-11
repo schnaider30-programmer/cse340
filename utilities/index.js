@@ -74,7 +74,7 @@ Util.buildClassificationGrid = async function (data) {
       grid += "</li>";
     });
   } else {
-    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
+    grid = '<p class="empty">Sorry, no matching vehicles could be found.</p>';
   }
   return grid;
 };

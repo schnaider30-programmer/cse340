@@ -256,6 +256,14 @@ h1 {
   font-family: Ubuntu;
 }
 
+.empty {
+  font-family: "Playfair Display", "Roboto", Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  text-transform: capitalize;
+  color: #721c24;
+}
+
 /* ********************* Detail Page ********** */
 .container {
   display: grid;
