@@ -629,11 +629,6 @@ input:focus:valid, #invDescription:valid, select:valid {
 
 /* Link to maintenance history*/
 
-#body #wrapper {
-  max-width: fit-content;
-  min-width: 850px;
-}
-
 .maint-hist {
   padding: 15px;
   text-align: center;
