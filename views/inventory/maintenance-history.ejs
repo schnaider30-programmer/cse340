@@ -1,0 +1,42 @@
+<% if (title) { %>
+    <h1 class="formH1">
+        <%= title %>
+    </h1>
+<% } else { %>
+        <h1 class="formH1">Maintenance History</h1>
+<% } %>
+
+<% const option = { year: "numeric", month: "long", day: "numeric" } %>
+<%- messages() %>
+<table>
+    <thead>
+        
+        <tr><td colspan="6"><%= itemName %></td></tr>
+        <tr>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Maintenance Cost</th>
+            <th>Performed By</th>
+            <th>Date of Maintenance</th>
+            <th>Scheduled Maintenance Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (Array.isArray(records) && records.length > 0) { %>
+            <% records.forEach(record => { %>
+                <tr>
+                    <td><%= record.maint_type %></td>
+                    <td><%= record.maint_desc %></td>
+                    <td>$<%= new Intl.NumberFormat("en-US").format(record.maint_cost)%></td>
+                    <td><%= record.maint_responsible %></td>
+                    <td><%= new Date(record.maint_date).toLocaleDateString("en-US", option) %></td>
+                    <td><%= new Date(record.maint_next_due_date).toLocaleDateString("en-US", option) %></td>
+                </tr>
+            <% }) %>
+        <% } else { %>
+            <tr>
+                <td colspan="6">No Records found for this vehicle.</td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>

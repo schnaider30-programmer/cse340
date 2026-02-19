@@ -4,6 +4,7 @@ const router = new express.Router();
 const invController = require("../controllers/invController");
 const utilities = require("../utilities");
 const invValidation = require("../utilities/inventory-validation");
+const { util } = require("prettier");
 
 router.get(
   "/type/:classificationId",
@@ -52,5 +53,18 @@ router.get("/delete/:inv_id", utilities.checkAccountType, utilities.handleErrors
 
 router.post("/delete/", utilities.checkAccountType, utilities.handleErrors(invController.deleteItem))
 
+router.get("/maintenance/:inv_id", utilities.checkAccountType, utilities.handleErrors(invController.buildMaintenanceView))
+
+router.post("/maintenance",
+  utilities.checkAccountType,
+  invValidation.maintenanceRules(),
+  invValidation.checkMaintenanceData,
+  utilities.handleErrors(invController.recordMaintenance
+))
+
+router.get("/maintenance-history/:inv_id", 
+  utilities.checkAccountType,
+  utilities.handleErrors(invController.buildHistoryTable)
+)
 
 module.exports = router;

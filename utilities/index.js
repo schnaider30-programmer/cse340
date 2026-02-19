@@ -167,6 +167,8 @@ Util.checkLogin = (req, res, next) => {
   }
 }
 
+/* Check Account Type */
+
 Util.checkAccountType = function (req, res, next) {
   if (res.locals.loggedin) {
     const accountType = res.locals.accountData.account_type

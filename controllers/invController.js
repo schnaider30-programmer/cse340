@@ -207,7 +207,8 @@ invCont.updateInventory = async function (req, res, next) {
 
 invCont.getInventoryJSON = async function (req, res, next) {
   const classification_id = parseInt(req.params.classification_id)
-  const invData = await invModel.getInventoryByClassificationId(classification_id)
+  let invData = await invModel.getInventoryByClassificationId(classification_id)
+  invData = invData.rows
   if (invData[0].inv_id) {
     return res.json(invData)
   } else {
@@ -287,6 +288,90 @@ invCont.deleteItem = async function (req, res, next) {
     req.flash("notice error", "We're sorry. Your deletion failed. Please try again")
     res.redirect(`/inv/delete/${inv_id}`)
   }
+}
+
+invCont.buildMaintenanceView = async function (req, res, next) {
+  const inv_id = parseInt(req.params.inv_id)
+  const itemData = await invModel.getVehiclesByInventoryId(inv_id)
+  const itemName = `${itemData.inv_make} ${itemData.inv_model} ${itemData.inv_year}`
+  let nav = await utilities.getNav()
+  res.render("inventory/maintenance", {
+    title: "Car Maintenance",
+    nav,
+    itemName,
+    errors: null, 
+    inv_id
+  })
+}
+
+invCont.recordMaintenance = async function (req, res, next) {
+  const {maint_type, maint_desc, maint_cost, maint_responsible, maint_date, maint_next_due_date, inv_id} = req.body
+  try {
+    const insertResult = await invModel.recordMaintenance(maint_type, maint_desc, maint_cost, maint_responsible, maint_date, maint_next_due_date, inv_id)
+    if (insertResult) {
+      req.flash("notice", "A New Maintenance Record has been saved.")
+      res.redirect("/inv/")
+    } else {
+      req.flash("notice error", "The maintenance record has not been saved")
+      res.render("inventory/maintenance", {
+        title: "Car Maintenance",
+        maint_type, 
+        maint_desc,
+        maint_cost,
+        maint_responsible, 
+        maint_date,
+        maint_next_due_date,
+        inv_id,
+        errors: null,
+      })
+    }
+  } catch (error) {
+    req.flash("notice error", "An Unexpected Error occurs while adding new record.")
+    console.log("Maintenance Saving Error: ", error)
+    res.render("inventory/maintenance", {
+        title: "Car Maintenance",
+        maint_type, 
+        maint_desc,
+        maint_cost,
+        maint_responsible, 
+        maint_date,
+        maint_next_due_date,
+        inv_id,
+        errors: null,
+      })
+  }
+}
+
+invCont.buildHistoryTable = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  const inv_id = parseInt(req.params.inv_id)
+
+  try {
+    const records = await invModel.getMaintenanceByInventoryId(inv_id)
+    if (Array.isArray(records) && records.length > 0) {
+      const itemName = `${records[0].inv_make} ${records[0].inv_model} ${records[0].inv_year}`
+      res.render("inventory/maintenance-history", {
+        title: "Maintenance History",
+        nav, 
+        records,
+        itemName,
+      })
+    } else {
+      const itemData = await invModel.getVehiclesByInventoryId(inv_id)
+      const itemName = `${itemData.inv_make} ${itemData.inv_model} ${itemData.inv_year}`
+      req.flash("notice error", "No Records found. Save new record and try again.")
+      res.render("inventory/maintenance-history", {
+        title: "Maintenance History",
+        nav, 
+        records: [],
+        itemName,
+      })
+    } 
+  } catch (error) {
+    req.flash("notice error", "An unexpected error occured. Please try again.")
+    res.redirect(`/inv/maintenance/${inv_id}`)
+  }
+  
 }
 
 module.exports = invCont;

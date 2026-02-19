@@ -1,0 +1,51 @@
+<% if (title) { %>
+    <h1 class="formH1">
+        <%= title %>
+    </h1>
+<% } else { %>
+    <h1 class="formH1">Car Maintenance</h1>
+<% } %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+    <ul class="notice error">
+     <% errors.array().forEach(error=> { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+
+
+<div class="form-container">
+    <p>*All input fields are required</p>
+    <form action="/inv/maintenance" method="post">
+
+        <label for="itemName">Car Name</label>
+        <input type="text" id="itemName" name="item_name" readonly value="<%= itemName %>" required>
+
+        <label for="maintType" class="required">Maintenance Type</label>
+        <input type="text" name="maint_type" id="maintType" placeholder="Ex: Oil Change" required value="<%= locals.maint_type %>">
+
+        <label for="maintDescription" class="required">Description</label>
+        <textarea name="maint_desc" id="maintDescription" placeholder="Ex: Changed oil and filter, checked fluids..." required class="textarea"><%= locals.maint_descr %></textarea>
+
+        <label for="maintCost" class="required">Maintenance Cost</label>
+        <input type="text" name="maint_cost" id="maintCost" value="<%= locals.maint_cost %>" required pattern="^\d+([.]\d+)?$" placeholder="Interger or Decimal... Ex: 499.99">
+
+        <label for="maintResponsible" class="required">Maintenance Performed By</label>
+        <input type="text" name="maint_responsible" id="maintResponsible" value="<%= locals.maint_responsible %>" required pattern="^[A-Za-zÀ-ÖØ-öø-ÿ' -]{2,}$" placeholder="John Doe">
+
+        <label for="maintDate" class="required">Date of Maintenance:</label>
+        <input type="text" name="maint_date" id="maintDate" pattern="^\d{4}-\d{2}-\d{2}$" placeholder="YYYY-MM-DD" required value="<%= locals.maint_date %>">
+
+        <label for="maintNextDueDate">Next Scheduled Maintenance Date:</label>
+        <input type="text" name="maint_next_due_date" id="maintNextDueDate" placeholder="YYYY-MM-DD" pattern="^\d{4}-\d{2}-\d{2}$" value="<%= locals.maint_next_due_date %>">
+
+        <button type="submit" id="submitBtn">Save Maintenance Record</button>
+
+        <input type="hidden" name="inv_id" value="<%= locals.inv_id || inv_id %>">
+    </form>
+    <p class="maint-hist"><a href="/inv/maintenance-history/<%= inv_id %>" class="maintenance-hist">See Maintenance History</a></>
+
+</div>
