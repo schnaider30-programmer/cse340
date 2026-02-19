@@ -9,22 +9,32 @@
 }
 
 #top-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
+  display: grid;
+  grid-template-columns: auto auto 48px;
   color: black;
+  align-items: center;
+}
+
+#top-header #tools {
+  margin: 0;
+  padding: 10px;
+  text-align: right;
 }
 
 #top-header a {
   color: black;
   font-family: Ubuntu, Verdana, Geneva, Tahoma, sans-serif;
+  margin-bottom: 8px;
+}
+hr {
+  color: #020202;
 }
 
 .site-id {
   display: flex;
   align-items: center;
 }
+
 
 #top-header span {
   font-size: 1.5rem;
@@ -45,15 +55,30 @@
 
 /* ******** Navigation ********  */
 nav {
+  display: none;
   background-color: black;
   width: 100%;
 }
+
+nav.active {
+  display: block;
+}
+
 nav ul {
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
+  text-align: center;
   list-style: none;
   padding: 10px;
   margin-bottom: 10px;
+}
+
+nav ul a {
+  color: white;
+  display: block;
+  border-bottom: 1px solid #07173a;
+  padding-bottom: 5px;
+  margin: 0;
 }
 
 nav ul li {
@@ -62,14 +87,25 @@ nav ul li {
   padding: 5px 10px;
 }
 
-nav ul li a {
-  color: white;
-}
-
 nav ul li:hover {
   background-color: gray;
 }
 
+#hamburger-btn {
+  display: block;
+  font-size: 1.3rem;
+  background-color: #020202;
+  color: #f1f1f1;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#hamburger-btn::before {
+  content: "☰";
+}
+
+#hamburger-btn.close::before {
+  content: "X";
+}
 /* *********** Heading ************** */
 
 h1 {
@@ -676,12 +712,20 @@ footer p {
   font-family: Ubuntu, Verdana, Geneva, Tahoma, sans-serif;
 }
 
-@media (min-width: 650px) {
+@media (min-width: 700px) {
   body {
     background-image: url("../images/site/checkerboard.jpg");
     background-size: cover;
     background-position: center;
   }
+
+  #top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+
 
   #wrapper {
     min-height: 100vh;
@@ -690,6 +734,18 @@ footer p {
     border: 5px solid skyblue;
     border-radius: 5px;
     background-color: white;
+  }
+
+  #hamburger-btn {
+      display: none;
+    }
+
+  nav ul {
+    display: flex;
+    flex-direction: row;
+  }
+  nav ul a {
+    border: none;
   }
 
   .upgrade-reviews {
