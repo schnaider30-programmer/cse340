@@ -29,42 +29,73 @@ router.post(
   utilities.handleErrors(invController.addClassification),
 );
 
-router.get("/add-inventory", utilities.checkAccountType, utilities.handleErrors(invController.inventoryAddForm))
+router.get(
+  "/add-inventory",
+  utilities.checkAccountType,
+  utilities.handleErrors(invController.inventoryAddForm),
+);
 
-router.post("/add-inventory", 
+router.post(
+  "/add-inventory",
   invValidation.addInventoryRules(),
   invValidation.checkInventoryData,
-  utilities.handleErrors(invController.saveNewInventory)
-)
+  utilities.handleErrors(invController.saveNewInventory),
+);
 
-router.get("/", utilities.checkAccountType, utilities.handleErrors(invController.buildManagementView));
+router.get(
+  "/",
+  utilities.checkAccountType,
+  utilities.handleErrors(invController.buildManagementView),
+);
 
-router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+router.get(
+  "/getInventory/:classification_id",
+  utilities.handleErrors(invController.getInventoryJSON),
+);
 
-router.get("/edit/:inventory_id", utilities.checkAccountType, utilities.handleErrors(invController.buildEditInventoryView))
+router.get(
+  "/edit/:inventory_id",
+  utilities.checkAccountType,
+  utilities.handleErrors(invController.buildEditInventoryView),
+);
 
-router.post("/update/",
+router.post(
+  "/update/",
   invValidation.addInventoryRules(),
   invValidation.checkUpdateData,
-  utilities.handleErrors(invController.updateInventory)
-)
+  utilities.handleErrors(invController.updateInventory),
+);
 
-router.get("/delete/:inv_id", utilities.checkAccountType, utilities.handleErrors(invController.deleteItemView))
+router.get(
+  "/delete/:inv_id",
+  utilities.checkAccountType,
+  utilities.handleErrors(invController.deleteItemView),
+);
 
-router.post("/delete/", utilities.checkAccountType, utilities.handleErrors(invController.deleteItem))
+router.post(
+  "/delete/",
+  utilities.checkAccountType,
+  utilities.handleErrors(invController.deleteItem),
+);
 
-router.get("/maintenance/:inv_id", utilities.checkAccountType, utilities.handleErrors(invController.buildMaintenanceView))
+router.get(
+  "/maintenance/:inv_id",
+  utilities.checkAccountType,
+  utilities.handleErrors(invController.buildMaintenanceView),
+);
 
-router.post("/maintenance",
+router.post(
+  "/maintenance",
   utilities.checkAccountType,
   invValidation.maintenanceRules(),
   invValidation.checkMaintenanceData,
-  utilities.handleErrors(invController.recordMaintenance
-))
+  utilities.handleErrors(invController.recordMaintenance),
+);
 
-router.get("/maintenance-history/:inv_id", 
+router.get(
+  "/maintenance-history/:inv_id",
   utilities.checkAccountType,
-  utilities.handleErrors(invController.buildHistoryTable)
-)
+  utilities.handleErrors(invController.buildHistoryTable),
+);
 
 module.exports = router;

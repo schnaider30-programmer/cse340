@@ -28,7 +28,7 @@
         <input type="text" name="maint_type" id="maintType" placeholder="Ex: Oil Change" required value="<%= locals.maint_type %>">
 
         <label for="maintDescription" class="required">Description</label>
-        <textarea name="maint_desc" id="maintDescription" placeholder="Ex: Changed oil and filter, checked fluids..." required class="textarea"><%= locals.maint_descr %></textarea>
+        <textarea name="maint_desc" id="maintDescription" placeholder="Ex: Changed oil and filter, checked fluids..." required class="textarea"><%= locals.maint_desc %></textarea>
 
         <label for="maintCost" class="required">Maintenance Cost</label>
         <input type="text" name="maint_cost" id="maintCost" value="<%= locals.maint_cost %>" required pattern="^\d+([.]\d+)?$" placeholder="Interger or Decimal... Ex: 499.99">

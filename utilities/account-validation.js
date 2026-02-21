@@ -124,7 +124,7 @@ validate.updateUserRules = () => {
       .escape()
       .notEmpty()
       .withMessage("First name cannot be empty when updating!"),
-    
+
     body("account_lastname")
       .trim()
       .escape()
@@ -134,16 +134,23 @@ validate.updateUserRules = () => {
     body("account_email")
       .trim()
       .escape()
-      .notEmpty().withMessage("Email field cannot be empty!")
+      .notEmpty()
+      .withMessage("Email field cannot be empty!")
       .bail()
-      .isEmail().withMessage("Please enter a valid email!")
+      .isEmail()
+      .withMessage("Please enter a valid email!")
       .bail()
       .normalizeEmail()
       .withMessage("Please enter a valid email!")
       .custom(async (account_email, { req }) => {
-        const emailExists = await accountModel.getAccountByEmail(account_email)
-        if (emailExists && emailExists.account_id !== parseInt(req.body.account_id)) {
-          throw new Error("Email already exists. Please choose a different email address!");
+        const emailExists = await accountModel.getAccountByEmail(account_email);
+        if (
+          emailExists &&
+          emailExists.account_id !== parseInt(req.body.account_id)
+        ) {
+          throw new Error(
+            "Email already exists. Please choose a different email address!",
+          );
         }
       }),
   ];
@@ -162,17 +169,23 @@ validate.updatePasswordRules = () => {
         minSymbols: 1,
       })
       .withMessage("Password does not meet requirements."),
-  ]
-}
+  ];
+};
 
 validate.checkUpdateUserData = async function (req, res, next) {
-   const { account_firstname, account_lastname, account_email, account_id } = req.body
+  const { account_firstname, account_lastname, account_email, account_id } =
+    req.body;
   let errors = [];
-  const accountData = { account_firstname: account_firstname, account_lastname: account_lastname, account_email: account_email, account_id: account_id}
+  const accountData = {
+    account_firstname: account_firstname,
+    account_lastname: account_lastname,
+    account_email: account_email,
+    account_id: account_id,
+  };
   errors = validationResult(req);
   if (!errors.isEmpty()) {
     let nav = utilities.getNav();
-    req.flash("notice error", "Requirements are not meet. Please try again!")
+    req.flash("notice error", "Requirements are not meet. Please try again!");
     res.render("account/update-account", {
       nav,
       title: "Account Update",
@@ -185,12 +198,14 @@ validate.checkUpdateUserData = async function (req, res, next) {
 };
 
 validate.checkPasswordData = async (req, res, next) => {
-  let errors = []
-  errors = validationResult(req)
+  let errors = [];
+  errors = validationResult(req);
   if (!errors.isEmpty()) {
-    req.flash("notice error", "Password does not meet requirement.")
-    res.redirect("/account/update")
-  } else {next()} 
-}
+    req.flash("notice error", "Password does not meet requirement.");
+    res.redirect("/account/update");
+  } else {
+    next();
+  }
+};
 
 module.exports = validate;

@@ -35,7 +35,6 @@ hr {
   align-items: center;
 }
 
-
 #top-header span {
   font-size: 1.5rem;
   font-family: Ubuntu, Verdana, Geneva, Tahoma, sans-serif;
@@ -293,7 +292,8 @@ h1 {
 }
 
 .empty {
-  font-family: "Playfair Display", "Roboto", Verdana, Geneva, Tahoma, sans-serif;
+  font-family:
+    "Playfair Display", "Roboto", Verdana, Geneva, Tahoma, sans-serif;
   font-size: 2rem;
   text-align: center;
   text-transform: capitalize;
@@ -435,7 +435,7 @@ h1 {
   & h2 {
     color: #042941;
 
-    & +p {
+    & + p {
       color: #042941;
       font-size: 1rem;
       margin-bottom: 3px;
@@ -445,8 +445,8 @@ h1 {
   & #classificationId {
     width: 250px;
   }
-  
-  & #inventoryDisplay{
+
+  & #inventoryDisplay {
     width: 100%;
     padding: 10px;
     font-size: 1rem;
@@ -459,7 +459,6 @@ h1 {
         text-align: left;
         padding-left: 5px;
       }
-
     }
     & tbody td {
       border-bottom: 1px solid #00f2fe;
@@ -502,7 +501,8 @@ h1 {
   text-shadow: 0 0 1px rgb(26, 4, 4);
 }
 
-h3.notice.error, h2.notice.error{
+h3.notice.error,
+h2.notice.error {
   color: #721c24;
   text-shadow: 0 0 1px rgb(26, 4, 4);
   font-size: 1.1rem;
@@ -570,8 +570,8 @@ label {
   font-family: Ubuntu, Verdana, Geneva, Tahoma, sans-serif;
 }
 
-
-input, select {
+input,
+select {
   padding: 5px;
   margin-bottom: 10px;
   width: 100%;
@@ -579,14 +579,18 @@ input, select {
 }
 
 input:required:invalid,
-input:focus:invalid, #invDescription:focus:invalid, select:invalid {
+input:focus:invalid,
+#invDescription:focus:invalid,
+select:invalid {
   background-color: rgb(235, 197, 197);
   outline: none;
   border: 1px solid #721c24;
 }
 
 input:required:valid,
-input:focus:valid, #invDescription:valid, select:valid {
+input:focus:valid,
+#invDescription:valid,
+select:valid {
   background-color: rgb(127, 240, 183);
   border: 1px solid #07e442;
   outline: none;
@@ -726,7 +730,6 @@ footer p {
     padding: 10px;
   }
 
-
   #wrapper {
     min-height: 100vh;
     width: 850px;
@@ -737,8 +740,8 @@ footer p {
   }
 
   #hamburger-btn {
-      display: none;
-    }
+    display: none;
+  }
 
   nav {
     display: block;

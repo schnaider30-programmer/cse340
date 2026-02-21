@@ -19,16 +19,15 @@ invCont.buildByClassificationId = async function (req, res, next) {
       grid,
     });
   } else {
-    const grid = await utilities.buildClassificationGrid(data.rows)
-    let nav = await utilities.getNav()
+    const grid = await utilities.buildClassificationGrid(data.rows);
+    let nav = await utilities.getNav();
     // const className = data.rows[0].classification_name;
     res.render("inventory/classification", {
       title: "No Vehicles Foud",
       nav,
-      grid
-    })
+      grid,
+    });
   }
-
 };
 
 /* *************************
@@ -39,11 +38,7 @@ invCont.buildByInventoryId = async function (req, res, next) {
   const vehicle = await invModel.getVehiclesByInventoryId(inventory_id);
   const detailsView = await utilities.buildVehiclesDetailsView(vehicle);
   const vehicleName =
-    vehicle.inv_year +
-    " " +
-    vehicle.inv_make +
-    " " +
-    vehicle.inv_model;
+    vehicle.inv_year + " " + vehicle.inv_make + " " + vehicle.inv_model;
   let nav = await utilities.getNav();
   res.render("inventory/details", {
     title: vehicleName,
@@ -51,7 +46,6 @@ invCont.buildByInventoryId = async function (req, res, next) {
     detailsView,
   });
 };
-
 
 invCont.AddClassificationForm = async function (req, res, next) {
   let nav = await utilities.getNav();
@@ -64,7 +58,7 @@ invCont.AddClassificationForm = async function (req, res, next) {
 
 invCont.addClassification = async function (req, res) {
   const { classification_name } = req.body;
-  const classificationSelect = await utilities.classificationList()
+  const classificationSelect = await utilities.classificationList();
   try {
     const result = await invModel.addNewClassification(classification_name);
     let nav = await utilities.getNav();
@@ -93,8 +87,11 @@ invCont.addClassification = async function (req, res) {
       });
     }
   } catch (error) {
-    console.error("Error adding classification:", error)
-    req.flash( "notice error", "A server error occurred while adding classification.",);
+    console.error("Error adding classification:", error);
+    req.flash(
+      "notice error",
+      "A server error occurred while adding classification.",
+    );
     res.status(500).render("inventory/add-classification", {
       title: "Add new Classification",
       nav,
@@ -105,24 +102,23 @@ invCont.addClassification = async function (req, res) {
 };
 
 invCont.inventoryAddForm = async function (req, res) {
-  let nav = await utilities.getNav()
-  let list = await utilities.classificationList()
+  let nav = await utilities.getNav();
+  let list = await utilities.classificationList();
   res.render("inventory/add-inventory", {
     title: "Add New Vehicle",
     nav,
     list,
     errors: null,
-  })
-}
-
+  });
+};
 
 invCont.buildManagementView = async function (req, res, next) {
   let nav = await utilities.getNav();
-  let classificationSelect = await utilities.classificationList()
+  let classificationSelect = await utilities.classificationList();
   res.render("inventory/management", {
     title: "Vehicle Management",
     nav,
-    classificationSelect
+    classificationSelect,
   });
 };
 
@@ -131,101 +127,184 @@ invCont.buildManagementView = async function (req, res, next) {
  *  ********************************* */
 
 invCont.saveNewInventory = async function (req, res, next) {
-  const { classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color } = req.body
+  const {
+    classification_id,
+    inv_make,
+    inv_model,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_year,
+    inv_miles,
+    inv_color,
+  } = req.body;
 
-  let nav = await utilities.getNav()
-  let  classificationSelect = await utilities.classificationList()
+  let nav = await utilities.getNav();
+  let classificationSelect = await utilities.classificationList();
 
   try {
-    const result = await invModel.addNewVehicle(classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color)
-    
+    const result = await invModel.addNewVehicle(
+      classification_id,
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color,
+    );
+
     if (result) {
-      req.flash("notice", "A new vehicle was successfully added to inventory")
+      req.flash("notice", "A new vehicle was successfully added to inventory");
 
       res.status(201).render("inventory/management", {
         title: "Vehicle Management",
-        nav, 
-        classificationSelect
-      })
+        nav,
+        classificationSelect,
+      });
     } else {
-      req.flash("notice error", "No vehicle added. Please try again")
+      req.flash("notice error", "No vehicle added. Please try again");
       res.render("inventory/add-inventory", {
         title: "Add New Vehicle",
-        classificationSelect, nav, inv_make, inv_model, inv_description, inv_price, inv_year, inv_miles, inv_color,
+        classificationSelect,
+        nav,
+        inv_make,
+        inv_model,
+        inv_description,
+        inv_price,
+        inv_year,
+        inv_miles,
+        inv_color,
         errors: null,
-        
-      })
+      });
     }
-
   } catch (error) {
-    req.flash("notice error", "A server error occurred while adding vehicle.")
+    req.flash("notice error", "A server error occurred while adding vehicle.");
     res.status(500).render("inventory/add-inventory", {
       title: "Add New Vehicle",
-      list, nav, inv_make, inv_model, inv_description, inv_price, inv_year, inv_miles, inv_color,
-      errors: null
-    })
-    console.error(`Error: ${error}`)
+      list,
+      nav,
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color,
+      errors: null,
+    });
+    console.error(`Error: ${error}`);
   }
-}
+};
 
 invCont.updateInventory = async function (req, res, next) {
-  const { classification_id, inv_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color } = req.body
+  const {
+    classification_id,
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_year,
+    inv_miles,
+    inv_color,
+  } = req.body;
 
-  let nav = await utilities.getNav()
-  let list = await utilities.classificationList()
+  let nav = await utilities.getNav();
+  let list = await utilities.classificationList();
 
   try {
-    const updateResult = await invModel.updateInventory(classification_id, inv_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color)
-    console.log(updateResult)
+    const updateResult = await invModel.updateInventory(
+      classification_id,
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color,
+    );
+    console.log(updateResult);
     if (updateResult) {
-      const itemName = `${inv_make} ${inv_model}`
-      req.flash("notice", `The ${itemName} was successfully updated.`)
+      const itemName = `${inv_make} ${inv_model}`;
+      req.flash("notice", `The ${itemName} was successfully updated.`);
 
-      res.redirect("/inv/")
-      
+      res.redirect("/inv/");
     } else {
-      const itemName = `${inv_make} ${inv_model}`
-      req.flash("notice error", "We're sorry. Your update failed. Please try again")
+      const itemName = `${inv_make} ${inv_model}`;
+      req.flash(
+        "notice error",
+        "We're sorry. Your update failed. Please try again",
+      );
       res.render("inventory/edit-inventory", {
         title: `Update ${itemName}`,
-        list, nav, inv_make, inv_model, inv_description, inv_price, inv_year, inv_miles, inv_color, inv_id,
-        errors: null
-      })
+        list,
+        nav,
+        inv_make,
+        inv_model,
+        inv_description,
+        inv_price,
+        inv_year,
+        inv_miles,
+        inv_color,
+        inv_id,
+        errors: null,
+      });
     }
-
   } catch (error) {
-    const itemName = `${inv_make} ${inv_model}`
-    req.flash("notice error", "A server error occurred while updating inventory.")
+    const itemName = `${inv_make} ${inv_model}`;
+    req.flash(
+      "notice error",
+      "A server error occurred while updating inventory.",
+    );
     res.status(500).render("inventory/edit-inventory", {
       title: `Update ${itemName}`,
-      list, nav, inv_make, inv_model, inv_description, inv_price, inv_year, inv_miles, inv_color, inv_id,
-      errors: null
-    })
-    console.error(`Error: ${error}`)
+      list,
+      nav,
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color,
+      inv_id,
+      errors: null,
+    });
+    console.error(`Error: ${error}`);
   }
-}
+};
 
 invCont.getInventoryJSON = async function (req, res, next) {
-  const classification_id = parseInt(req.params.classification_id)
-  let invData = await invModel.getInventoryByClassificationId(classification_id)
-  invData = invData.rows
+  const classification_id = parseInt(req.params.classification_id);
+  let invData =
+    await invModel.getInventoryByClassificationId(classification_id);
+  invData = invData.rows;
   if (invData[0].inv_id) {
-    return res.json(invData)
+    return res.json(invData);
   } else {
-    next(new Error("No data returned"))
+    next(new Error("No data returned"));
   }
-}
+};
 
 /* ***********************
  *  Build Edit Inventory Management View
  *  *********************** */
 
 invCont.buildEditInventoryView = async function (req, res, next) {
-  const inventory_id = parseInt(req.params.inventory_id)
-  let nav = await utilities.getNav()
+  const inventory_id = parseInt(req.params.inventory_id);
+  let nav = await utilities.getNav();
   const itemData = await invModel.getVehiclesByInventoryId(inventory_id);
-  const list = await utilities.classificationList(itemData.classification_id)
-  const itemName = `${itemData.inv_make} ${itemData.inv_model}`
+  const list = await utilities.classificationList(itemData.classification_id);
+  const itemName = `${itemData.inv_make} ${itemData.inv_model}`;
   res.render("inventory/edit-inventory", {
     title: `Update ${itemName}`,
     nav,
@@ -243,19 +322,19 @@ invCont.buildEditInventoryView = async function (req, res, next) {
     inv_color: itemData.inv_color,
     classification_id: itemData.classification_id,
     errors: null,
-  })
-}
+  });
+};
 
-/* ********************************** 
- *  Build Delete Item Confirmation View 
+/* **********************************
+ *  Build Delete Item Confirmation View
  *  Unit 5 - Team Activity
  * *********************************** */
 
 invCont.deleteItemView = async function (req, res, next) {
-  let nav = await utilities.getNav()
-  const inv_id = parseInt(req.params.inv_id)
-  const itemData = await invModel.getVehiclesByInventoryId(inv_id)
-  const itemName = `${itemData.inv_make} ${itemData.inv_model}`
+  let nav = await utilities.getNav();
+  const inv_id = parseInt(req.params.inv_id);
+  const itemData = await invModel.getVehiclesByInventoryId(inv_id);
+  const itemName = `${itemData.inv_make} ${itemData.inv_model}`;
 
   res.render("inventory/delete-confirm", {
     title: `Delete ${itemName}`,
@@ -266,112 +345,135 @@ invCont.deleteItemView = async function (req, res, next) {
     inv_price: itemData.inv_price,
     inv_year: itemData.inv_year,
     inv_id,
-    errors: null
-  })
-}
+    errors: null,
+  });
+};
 /* *******************************************
-  * Delete Item 
-  * ******************************************** */
+ * Delete Item
+ * ******************************************** */
 
 invCont.deleteItem = async function (req, res, next) {
-  let { inv_id, inv_make, inv_model } = req.body
-  inv_id = parseInt(inv_id)
-  const itemName = `${inv_make} ${inv_model}`
-  const deleteResult = await invModel.deleteInventory( inv_id )
+  let { inv_id, inv_make, inv_model } = req.body;
+  inv_id = parseInt(inv_id);
+  const itemName = `${inv_make} ${inv_model}`;
+  const deleteResult = await invModel.deleteInventory(inv_id);
 
   if (deleteResult) {
-    req.flash("notice", `${itemName} was successfully deleted.`)
+    req.flash("notice", `${itemName} was successfully deleted.`);
 
-    res.redirect("/inv/")
-    
+    res.redirect("/inv/");
   } else {
-    req.flash("notice error", "We're sorry. Your deletion failed. Please try again")
-    res.redirect(`/inv/delete/${inv_id}`)
+    req.flash(
+      "notice error",
+      "We're sorry. Your deletion failed. Please try again",
+    );
+    res.redirect(`/inv/delete/${inv_id}`);
   }
-}
+};
 
 invCont.buildMaintenanceView = async function (req, res, next) {
-  const inv_id = parseInt(req.params.inv_id)
-  const itemData = await invModel.getVehiclesByInventoryId(inv_id)
-  const itemName = `${itemData.inv_make} ${itemData.inv_model} ${itemData.inv_year}`
-  let nav = await utilities.getNav()
+  const inv_id = parseInt(req.params.inv_id);
+  const itemData = await invModel.getVehiclesByInventoryId(inv_id);
+  const itemName = `${itemData.inv_make} ${itemData.inv_model} ${itemData.inv_year}`;
+  let nav = await utilities.getNav();
   res.render("inventory/maintenance", {
     title: "Car Maintenance",
     nav,
     itemName,
-    errors: null, 
-    inv_id
-  })
-}
+    errors: null,
+    inv_id,
+  });
+};
 
 invCont.recordMaintenance = async function (req, res, next) {
-  const {maint_type, maint_desc, maint_cost, maint_responsible, maint_date, maint_next_due_date, inv_id} = req.body
+  const {
+    maint_type,
+    maint_desc,
+    maint_cost,
+    maint_responsible,
+    maint_date,
+    maint_next_due_date,
+    inv_id,
+  } = req.body;
   try {
-    const insertResult = await invModel.recordMaintenance(maint_type, maint_desc, maint_cost, maint_responsible, maint_date, maint_next_due_date, inv_id)
+    const insertResult = await invModel.recordMaintenance(
+      maint_type,
+      maint_desc,
+      maint_cost,
+      maint_responsible,
+      maint_date,
+      maint_next_due_date,
+      inv_id,
+    );
     if (insertResult) {
-      req.flash("notice", "A New Maintenance Record has been saved.")
-      res.redirect("/inv/")
+      req.flash("notice", "A New Maintenance Record has been saved.");
+      res.redirect("/inv/");
     } else {
-      req.flash("notice error", "The maintenance record has not been saved")
+      req.flash("notice error", "The maintenance record has not been saved");
       res.render("inventory/maintenance", {
         title: "Car Maintenance",
-        maint_type, 
+        maint_type,
         maint_desc,
         maint_cost,
-        maint_responsible, 
+        maint_responsible,
         maint_date,
         maint_next_due_date,
         inv_id,
         errors: null,
-      })
+      });
     }
   } catch (error) {
-    req.flash("notice error", "An Unexpected Error occurs while adding new record.")
-    console.log("Maintenance Saving Error: ", error)
+    req.flash(
+      "notice error",
+      "An Unexpected Error occurs while adding new record.",
+    );
+    console.log("Maintenance Saving Error: ", error);
     res.render("inventory/maintenance", {
-        title: "Car Maintenance",
-        maint_type, 
-        maint_desc,
-        maint_cost,
-        maint_responsible, 
-        maint_date,
-        maint_next_due_date,
-        inv_id,
-        errors: null,
-      })
+      title: "Car Maintenance",
+      maint_type,
+      maint_desc,
+      maint_cost,
+      maint_responsible,
+      maint_date,
+      maint_next_due_date,
+      inv_id,
+      errors: null,
+    });
   }
-}
+};
 
 invCont.buildHistoryTable = async function (req, res, next) {
   let nav = await utilities.getNav();
-  const inv_id = parseInt(req.params.inv_id)
+  const inv_id = parseInt(req.params.inv_id);
 
   try {
-    const records = await invModel.getMaintenanceByInventoryId(inv_id)
+    const records = await invModel.getMaintenanceByInventoryId(inv_id);
     if (Array.isArray(records) && records.length > 0) {
-      const itemName = `${records[0].inv_make} ${records[0].inv_model} ${records[0].inv_year}`
+      const itemName = `${records[0].inv_make} ${records[0].inv_model} ${records[0].inv_year}`;
       res.render("inventory/maintenance-history", {
         title: "Maintenance History",
-        nav, 
+        nav,
         records,
         itemName,
-      })
+      });
     } else {
-      const itemData = await invModel.getVehiclesByInventoryId(inv_id)
-      const itemName = `${itemData.inv_make} ${itemData.inv_model} ${itemData.inv_year}`
-      req.flash("notice error", "No Records found. Save new record and try again.")
+      const itemData = await invModel.getVehiclesByInventoryId(inv_id);
+      const itemName = `${itemData.inv_make} ${itemData.inv_model} ${itemData.inv_year}`;
+      req.flash(
+        "notice error",
+        "No Records found. Save new record and try again.",
+      );
       res.render("inventory/maintenance-history", {
         title: "Maintenance History",
-        nav, 
+        nav,
         records: [],
         itemName,
-      })
-    } 
+      });
+    }
   } catch (error) {
-    req.flash("notice error", "An unexpected error occured. Please try again.")
-    res.redirect(`/inv/maintenance/${inv_id}`)
+    req.flash("notice error", "An unexpected error occured. Please try again.");
+    res.redirect(`/inv/maintenance/${inv_id}`);
   }
-  
-}
+};
 
 module.exports = invCont;

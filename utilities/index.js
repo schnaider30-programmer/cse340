@@ -1,8 +1,7 @@
-const invModel = require("../models/inventory-model"); 
-const jwt = require("jsonwebtoken")
-require("dotenv").config()
+const invModel = require("../models/inventory-model");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const Util = {};
-
 
 /* ****************
  * Conctructs the nav HTML unordered list
@@ -120,69 +119,75 @@ Util.buildVehiclesDetailsView = async function (item) {
 };
 
 Util.classificationList = async function (classification_id = null) {
-  const data = await invModel.getClassifications()
-  let list = `<select name="classification_id" required id="classificationId">`
-  list += "<option value=\"\" selected disabled>--Choose a classification--</option>"
+  const data = await invModel.getClassifications();
+  let list = `<select name="classification_id" required id="classificationId">`;
+  list +=
+    '<option value="" selected disabled>--Choose a classification--</option>';
   data.rows.forEach((row) => {
-    list += `<option value="${row.classification_id}"`
-    if (!classification_id != null && classification_id == row.classification_id) {
-      list += " selected "
+    list += `<option value="${row.classification_id}"`;
+    if (
+      !classification_id != null &&
+      classification_id == row.classification_id
+    ) {
+      list += " selected ";
     }
-    list += ">"
-    list += `${row.classification_name}`
-    list += "</option>"
-  })
-  list += "</select>"
-  return list
-}
+    list += ">";
+    list += `${row.classification_name}`;
+    list += "</option>";
+  });
+  list += "</select>";
+  return list;
+};
 
-Util.checkJWTToken = function(req, res, next) {
+Util.checkJWTToken = function (req, res, next) {
   if (req.cookies.jwt) {
     jwt.verify(
       req.cookies.jwt,
       process.env.ACCESS_TOKEN_SECRET,
       function (err, accountData) {
         if (err) {
-          req.flash("Please log in")
-          res.clearCookie("jwt")
-          return res.redirect("/account/login")
+          req.flash("Please log in");
+          res.clearCookie("jwt");
+          return res.redirect("/account/login");
         }
-        res.locals.accountData = accountData
-        res.locals.loggedin = 1
-        next()
-      }
-    )
-  } else { next() }
-}
+        res.locals.accountData = accountData;
+        res.locals.loggedin = 1;
+        next();
+      },
+    );
+  } else {
+    next();
+  }
+};
 
 /* ****************************************
  *  Check Login
  * ************************************ */
 
 Util.checkLogin = (req, res, next) => {
-  if (res.locals.loggedin) { next() } 
-  else {
-    req.flash("notice error", "Please Log In")
-    return res.redirect("/account/login")
+  if (res.locals.loggedin) {
+    next();
+  } else {
+    req.flash("notice error", "Please Log In");
+    return res.redirect("/account/login");
   }
-}
+};
 
 /* Check Account Type */
 
 Util.checkAccountType = function (req, res, next) {
   if (res.locals.loggedin) {
-    const accountType = res.locals.accountData.account_type
+    const accountType = res.locals.accountData.account_type;
     if (accountType === "Admin" || accountType === "Employee") {
-      next()
+      next();
     } else {
-      req.flash("notice error", "Access denied. Admin or Employee only.")
-      res.redirect("/account/login")
+      req.flash("notice error", "Access denied. Admin or Employee only.");
+      res.redirect("/account/login");
     }
   } else {
-    req.flash("notice error", "Please Log in before processing")
-    res.redirect("/account/login")
+    req.flash("notice error", "Please Log in before processing");
+    res.redirect("/account/login");
   }
-}
-
+};
 
 module.exports = Util;
